@@ -9,6 +9,45 @@
     </head>
     <body>
         <header>header</header>
+        <main>
+            <div class="container">
+                {% for post in data %}
+                    <div class="post" onclick="popup({{post.id}});">
+                        <div class="post-header">
+                            <div class="user_name">{{post.user_name}}</div>
+                            {% if post.type == 1 %}
+                            <div class="for-sns" style="color: #1b91da">for twitter</div>
+                            {% else %}
+                            <div class="for-sns" style="color: #dc316f">for instagram</div>
+                            {% endif %}
+                        </div>
+                        {% if post.media_url != "" %}
+                        <div class="main-image" style="background-image: url({{post.media_url}})"></div>
+                        {% else %}
+                        <div class="post-content">
+                            {{post.content | linebreaksbr}}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% if post.media_url != "" %}
+                    <div class="popup-hidden" id={{post.id}}>
+                        <img class="popup-post" src={{post.media_url}}>
+                        <div class="post-media-content">
+                            <p>{{post.content | linebreaksbr}}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </main>
+        <script>
+            function popup(id){
+                console.log(id);
+                target = document.getElementById(id);
+                target.classList.remove("popup-hidden");
+                target.classList.add("popup-show");
+            }
+        </script>
     </body>
 </html>
 
