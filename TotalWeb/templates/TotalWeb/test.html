@@ -53,13 +53,17 @@
                     </div>
                     {% if post.media_url != "" %}
                     <div class="popup-hidden" id={{post.id}}>
-                        <div class="popup-header">
-                            {{post.user_name}}
-                            <p class="close-button" onclick="closePopup({{post.id}})">close</p>
-                        </div>
-                        <img class="popup-post" src={{post.media_url}}>
-                        <div class="post-media-content">
-                            <p>{{post.content | linebreaksbr}}</p>
+                        <div class="popup">
+                            <div class="popup-main">
+                                <div class="popup-header">
+                                    {{post.user_name}}
+                                    <p class="close-button" onclick="closePopup({{post.id}})">close</p>
+                                </div>
+                                <img class="popup-post" src={{post.media_url}}>
+                                <div class="post-media-content">
+                                    <p>{{post.content | linebreaksbr}}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     {% endif %}
@@ -72,14 +76,14 @@
                 target = document.getElementById(id);
                 main = document.getElementById("main");
                 target.classList.remove("popup-hidden");
-                target.classList.add("popup-show");
-                main.classList.add("main-shadow");
+                target.classList.add("popup-show", "shadow");
+                main.classList.add("shadow");
             }
             function closePopup(id){
                 target = document.getElementById(id);
                 main = document.getElementById("main");
-                target.classList.remove("popup-show");
-                main.classList.remove("main-shadow");
+                target.classList.remove("popup-show", "shadow");
+                main.classList.remove("shadow");
                 target.classList.add("popup-hidden");
 
             } 

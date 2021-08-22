@@ -110,40 +110,54 @@ body main .container .popup-hidden {
 }
 
 body main .container .popup-show {
-  opacity: 1;
-  background-color: white;
-  width: 400px;
-  display: block;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 1440px;
+  min-height: 100vh;
   z-index: 10;
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -20%);
-          transform: translate(-50%, -20%);
+  position: fixed;
 }
 
-body main .container .popup-show .popup-header {
-  -webkit-padding-start: 5%;
-          padding-inline-start: 5%;
-  -webkit-padding-end: 5%;
-          padding-inline-end: 5%;
+body main .container .popup-show .popup {
+  position: relative;
+  width: 1440px;
+  min-height: 100vh;
+}
+
+body main .container .popup-show .popup .popup-main {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+body main .container .popup-show .popup .popup-main .popup-header {
+  width: 360px;
+  background-color: white;
+  -webkit-padding-start: 20px;
+          padding-inline-start: 20px;
+  -webkit-padding-end: 20px;
+          padding-inline-end: 20px;
   height: 40px;
   line-height: 40px;
 }
 
-body main .container .popup-show .popup-header .close-button {
+body main .container .popup-show .popup .popup-main .popup-header .close-button {
   margin: 0;
   float: right;
 }
 
-body main .container .popup-show .popup-post {
+body main .container .popup-show .popup .popup-main .popup-post {
   margin-top: 0;
   padding-top: 0;
   width: 400px;
   overflow: visible;
 }
 
-body main .container .popup-show .post-media-content {
+body main .container .popup-show .popup .popup-main .post-media-content {
+  width: 400px;
   background-color: white;
   height: auto;
   overflow: visible;
@@ -162,5 +176,9 @@ body main .container::after {
   content: "";
   display: block;
   width: 23%;
+}
+
+.shadow {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 /*# sourceMappingURL=test.css.map */

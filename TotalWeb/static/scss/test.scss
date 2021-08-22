@@ -80,35 +80,47 @@ body {
             }
 
             .popup-show {
-                opacity: 1;
-                background-color: white;
-                width: 400px;
-                display: block;
+                top: 0;
+                left: 0;
+                background-color: rgba(0, 0, 0, 0.5);
+                width: 1440px;
+                min-height: 100vh;
                 z-index: 10;
-                position: absolute;
-                top: 20%;
-                left: 50%;
-                transform: translate(-50%, -20%);
-                .popup-header {
-                    padding-inline-start: 5%;
-                    padding-inline-end: 5%;
-                    height: 40px;
-                    line-height: 40px;
-                    .close-button {
-                        margin: 0;
-                        float: right;
+                position: fixed;
+                .popup {
+                    position: relative;
+                    width: 1440px;
+                    min-height: 100vh;
+                    .popup-main {
+                        position: absolute;
+                        top: 60%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        .popup-header {
+                            width: 360px;
+                            background-color: white;
+                            padding-inline-start: 20px;
+                            padding-inline-end: 20px;
+                            height: 40px;
+                            line-height: 40px;
+                            .close-button {
+                                margin: 0;
+                                float: right;
+                            }
+                        }
+                        .popup-post{
+                            margin-top: 0;
+                            padding-top: 0;
+                            width: 400px;
+                            overflow: visible;
+                        }
+                        .post-media-content {
+                            width: 400px;
+                            background-color: white;
+                            height: auto;
+                            overflow: visible;
+                        }
                     }
-                }
-                .popup-post{
-                    margin-top: 0;
-                    padding-top: 0;
-                    width: 400px;
-                    overflow: visible;
-                }
-                .post-media-content {
-                    background-color: white;
-                    height: auto;
-                    overflow: visible;
                 }
             }
         }
@@ -124,6 +136,8 @@ body {
             width:23%;
         }
     }
-    .main-shadow {
-    }
+}
+
+.shadow {
+    background-color: rgba(0, 0, 0, 0.5);
 }
