@@ -1,4 +1,5 @@
 from django.shortcuts import render
+import logging
 import tweepy
 import json
 import datetime
@@ -17,12 +18,18 @@ api = tweepy.API(auth)
 # Create your views here.
 def top(request):
     return render(request, 'TotalWeb/top.html')
+
 def test(request):
-    return render(request, 'TotalWeb/test.html')
+    data={ "data" : []}
+    id_lst, img_dict = twitter_get_id("マキアート")
+    for i in id_lst:
+        data["data"].append(twitter_id_show(i))
+
+    return render(request, 'TotalWeb/test.html', data)
 
 def twitter_get_id(request):
     """ツイッターのid取得"""
-    tweet_id_url = []　#ツイートID
+    tweet_id_url = []  #ツイートID
     tweet_dict = {}    #画像があるツイートIDと画像urlを格納
 
     # 最近のツイート情報10件取得
@@ -42,16 +49,18 @@ def twitter_get_id(request):
             tweet_id_url.append(tweet.id)
     return tweet_id_url, tweet_dict
 
-    def twitter_save_id(tweet_id):
-    """idからツイッターの情報取得"""
+def twitter_id_show(tweet_id):
+
+    # idからツイッターの情報取得
     Twitter = Twython(API_KEY, API_SECRET,ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
     
     tweet = Twitter.show_status(id=tweet_id)
-        param = {
-        'id' : tweet_id,
-        # 'user_name' : tweet['user']['name'],
-        # 'media_url' : url,
-        'content' : tweet['text'],
-        'timestamp': tweet['created_at']
-        }
+    param = {
+    'id' : tweet_id,
+    # 'user_name' : tweet['user']['name'],
+    # 'media_url' : url,
+    'content' : tweet['text'],
+    'timestamp': tweet['created_at']
+    }
+
     return param
