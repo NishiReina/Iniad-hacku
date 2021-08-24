@@ -17,13 +17,20 @@ api = tweepy.API(auth)
 
 # Create your views here.
 def top(request):
-    return render(request, 'TotalWeb/top.html')
+    return render(request, 'TotalWeb/test.html')
 
-def test(request):
+def search(request):
+    search = request.POST.get("search")
     data={ "data" : []}
-    id_lst, img_dict = twitter_get_id("マキアート")
+    id_lst, img_dict = twitter_get_id("#" + search)
     for i in id_lst:
-        data["data"].append(twitter_id_show(i))
+        params = twitter_id_show(i)
+        params["type"] = 1
+        if (i in img_dict):
+            params["media_url"] = img_dict[i]
+        else:
+            params["media_url"] = ""
+        data["data"].append(params)
 
     return render(request, 'TotalWeb/test.html', data)
 

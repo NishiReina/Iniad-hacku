@@ -1,0 +1,144 @@
+$twiiter: #1b91da;
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+p{
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+body {
+    min-height: 100vh;
+    position: relative;
+    .header {
+        background-color: white;
+        position: fixed;
+        width: 100%;
+        height: 100px;
+        display: flex;
+        flex-direction: row;
+        z-index: 100;
+        // top: 5px;
+        padding-top: -30px;
+        padding-bottom: 10px;
+        box-shadow:10px 0 25px -10px rgba(0, 0, 0, 0.5) ;
+    
+        &__logo{ 
+            width: 550px;
+            margin-left: 60px;
+            margin-top: 0px;
+            overflow: hidden;
+        }
+    }
+    main {
+        min-height: 100vh;
+        padding-top: 150px;
+        .container {
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            width: 1300px;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+            .post {
+                min-height: 360px;
+                box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.5);
+                display: block;
+                width:23%;
+                position: relative;
+                z-index: 2;
+                margin-bottom: 30px;
+                .post-header {
+                    padding-inline-start: 5%;
+                    padding-inline-end: 5%;
+                    height: 40px;
+                    line-height: 40px;
+                    display: flex;
+                    justify-content: space-between;
+                    border-bottom: 1px solid gray;
+                }
+                .main-image {
+                    width:100%;
+                    padding-top: 100%;
+                    background-size: cover;
+                }
+                .post-content {
+                    position: absolute;
+                    top: 50%;
+                    transform: translate(0, -50%);
+                }
+                .post-footer {
+                    height: 40px;
+                }
+            }
+            .popup-hidden {
+                display: none;
+            }
+
+            .popup-show {
+                top: 0;
+                left: 0;
+                background-color: rgba(0, 0, 0, 0.5);
+                width: 1440px;
+                min-height: 100vh;
+                z-index: 10;
+                position: fixed;
+                .popup {
+                    position: relative;
+                    width: 1440px;
+                    min-height: 100vh;
+                    .popup-main {
+                        position: absolute;
+                        top: 60%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        .popup-header {
+                            width: 360px;
+                            background-color: white;
+                            padding-inline-start: 20px;
+                            padding-inline-end: 20px;
+                            height: 40px;
+                            line-height: 40px;
+                            .close-button {
+                                margin: 0;
+                                float: right;
+                            }
+                        }
+                        .popup-post{
+                            margin-top: 0;
+                            padding-top: 0;
+                            width: 400px;
+                            overflow: visible;
+                        }
+                        .post-media-content {
+                            width: 400px;
+                            background-color: white;
+                            height: auto;
+                            overflow: visible;
+                        }
+                    }
+                }
+            }
+        }
+        .container::before{
+            content:"";
+            display: block;
+            width:23%;
+            order: 1;
+        }
+        .container::after{
+            content:"";
+            display: block;
+            width:23%;
+        }
+    }
+}
+
+.shadow {
+    background-color: rgba(0, 0, 0, 0.5);
+}
