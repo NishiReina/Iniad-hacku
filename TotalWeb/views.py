@@ -1,9 +1,29 @@
 from django.shortcuts import render
+import tweepy
+import json
+import datetime
+import requests
+from twython import Twython
+
+# APIkey
+API_KEY = 'nzz81gXwZfMbvOoBfFfGlQC4s'
+API_SECRET = '3BUjtqoz0HwAiLfGnEKJ8YoxoHYg6BVXJqpkPEGzg2xLum2QrM'
+ACCESS_TOKEN = '1420094993084026881-Ljl1gCaFkYUz4dXp2z2nQbIKaFCbiA'
+ACCESS_TOKEN_SECRET = 'Vtwk9CKX5KIi43sp8aSXy5mt6isrb0LPndHfQGSz8rxmG'
+
+auth = tweepy.OAuthHandler(API_KEY, API_SECRET)
+auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
+api = tweepy.API(auth)
+
+#insta API key
+instagramID = "17841449060627485"
+ACCESS_TOKEN1 = "EAAa6dAwDe5IBAPaokcLfEmtZBMi6Hlcxufb9gEdsNVZCgbioZB1jKN0uDczPouHxLNZBIlxm46JtZB0WBWipVvc1ldxD5PfySy1MlN1l7FW23613dosprzwaGXxCqJunN9ZCmumuqpkf0O2tEZCptVqPEDecjZAKw6ZB7IP0YLQDCE1BKaezH1zAZARdD7RrpJJycZD"
 
 # Create your views here.
 def top(request):
     return render(request, 'TotalWeb/top.html')
 def test(request):
+
     return render(request, 'TotalWeb/test.html', json)
 
 
@@ -91,3 +111,84 @@ json = {
         "content": "みんなぁ配信見てくれてありがとう青のハート緑のハート黄色のハート紫のハート❤光るハートきらめくハート\nとってもマキアートな配信だったね(๑•ω-๑)♡\nみんなでわいわい盛り上がれて今日も今日とて大満足だよねって話だよね愛してるのジェスチャー\n次の配信は、明日の夕方16:00からだよん！！よろしくお願いしマキアート･:*+.(( °ω° ))/.:+\nおつはなぁ((ヾ(･д･｡)ﾌﾘﾌﾘ",
         "timestamp": "2021-08-21T07:56:39+0000"
     }]}
+
+    
+
+def twitter_get_id(request):
+    """ツイッターのid取得"""
+    tweet_id_url = [] #ツイートID
+    tweet_dict = {}    #画像があるツイートIDと画像urlを格納
+
+    # 最近のツイート情報10件取得
+    tweets = api.search(q=[request], result_type="recent", count=10)
+    for tweet in tweets:
+        try:
+            # 画像url取得
+            url = tweet.extended_entities['media'][0]['media_url']
+        except:
+            # 画像がなかった場合
+            url = False
+        else:
+            # 画像があった場合tweet_dictに追加
+            tweet_dict[tweet.id] = url
+        finally:
+            # 10件のIDを格納
+            tweet_id_url.append(tweet.id)
+    return tweet_id_url, tweet_dict
+
+def twitter_show(tweet_id):
+    Twitter = Twython(API_KEY, API_SECRET,ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
+    tweet = Twitter.show_status(id=tweet_id)
+    param = {
+    'type' : 1,
+    'id' : tweet_id,
+    # 'user_name' : tweet['user']['name'],
+    # 'media_url' : url,
+    'content' : tweet['text'],
+    'timestamp': tweet['created_at']
+    }
+    return param
+
+# def instagram_get_id(request):
+#     insta_id_url = [] #投稿ID
+#     id_search_url = "https://graph.facebook.com/ig_hashtag_search?user_id=" + instagramID + "&q=" + request +  "&access_token=" + ACCESS_TOKEN1
+#     response = requests.get(id_search_url)
+#     hash_id = response.json()
+#     serch_type = "recent_media"
+#     url = "https://graph.facebook.com/v9.0/" + hash_id["data"][0]["id"] + "/" + serch_type + "?user_id=" + instagramID + "&access_token=" + ACCESS_TOKEN + "&fields=id,media_url,caption,timestamp,children{id,media_url}&limit=10"
+#     response = requests.get(url)
+#     response.json()["data"]
+#     item = response.json()["data"]
+#     for i in item:
+#         print(i["id"])
+#         insta_id_url.append(i["id"])
+#     return insta_id_url
+
+def insta_show(request): 
+    id_search_url = "https://graph.facebook.com/ig_hashtag_search?user_id=" + instagramID + "&q=#" + request +  "&access_token=" + ACCESS_TOKEN1
+    response = requests.get(id_search_url)
+    hash_id = response.json()
+    serch_type = "recent_media"
+    url = "https://graph.facebook.com/v9.0/" + hash_id["data"][0]["id"] + "/" + serch_type + "?user_id=" + instagramID + "&access_token=" + ACCESS_TOKEN1 + "&fields=id,media_url,caption,timestamp,children{id,media_url}&limit=2"
+    response = requests.get(url)
+    insta_dict = {"data":[]}
+    for i in response.json()["data"]:
+        param = {
+            'type': 2,
+            'id' : i["id"],
+            'content' : i["caption"],
+            'timestamp' : i["timestamp"],
+        }
+        if "children" in i:
+            for t in i["children"]["data"]:
+                param["media_url"] = t["media_url"]
+                break
+        else:
+            param["media_url"] = i["media_url"]
+        insta_dict["data"].append(param)
+    return insta_dict
+
+
+        
+
+
