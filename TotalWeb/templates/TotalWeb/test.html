@@ -36,7 +36,7 @@
         <main id="main">
             <div class="container">
                 {% for post in data %}
-                    <div class="post" onclick="popup({{post.id}});">
+                    <div class="post" onclick="popup({post.id}});">
                         <div class="post-header">
                             <div class="user_name">{{post.user_name}}</div>
                             {% if post.type == 1 %}
@@ -54,7 +54,7 @@
                         {% endif %}
                     </div>
                     {% if post.media_url != "" %}
-                    <div class="popup-hidden" id={{post.id}}>
+                    <div class="popup-hidden" id="{{post.id}}">
                         <div class="popup">
                             <div class="popup-main">
                                 <div class="popup-header">
@@ -74,7 +74,7 @@
         </main>
         <script>
             function popup(id){
-                console.log(id);
+                console.log(typeof(id));
                 target = document.getElementById(id);
                 main = document.getElementById("main");
                 target.classList.remove("popup-hidden");
@@ -87,18 +87,8 @@
                 target.classList.remove("popup-show", "shadow");
                 main.classList.remove("shadow");
                 target.classList.add("popup-hidden");
-
             } 
-
-            var btn = document.getElementById('btn');
- 
-            btn.addEventListener('click', function() {
-                alert(document.myform.mytext.value);
-
-                document.myform.submit();
-            }
         </script>
-
     </body>
 </html>
 

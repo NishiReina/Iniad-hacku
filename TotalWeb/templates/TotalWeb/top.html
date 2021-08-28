@@ -1,0 +1,42 @@
+{% load sass_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.3/css/uikit.min.css" />
+
+    <!-- UIkit JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.3/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.3/js/uikit-icons.min.js"></script>
+    <link rel="stylesheet" href="{% sass_src 'scss/test.scss' %}">
+    <title>Hather</title>
+</head>
+<body>
+    <div class="container">
+        <div class="pc">
+            <img src="../../static/images/logo.png" alt="PC photo">
+        </div>
+        <div class="main">
+            <div class="logo">
+                <h1><img src="../../static/images/PC.png" alt="logo"></h1>
+            </div>
+            <nav class="uk-navbar-container" uk-navbar>
+                <div class="uk-navbar-left">
+                    <div class="topmain uk-navbar-item">
+                        <form action="/search" method="post" class="topform uk-search uk-search-navbar">
+                            {% csrf_token %}
+                            <span uk-search-icon></span>
+                            <input name="search" class="uk-search-input" type="search" placeholder="search or #">
+                            <button type="hidden" id="btn"></button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    
+</body>
+</html>

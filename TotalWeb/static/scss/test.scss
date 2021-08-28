@@ -5,14 +5,28 @@ $twiiter: #1b91da;
     padding: 0;
 }
 
-p{
+p {
     margin-block-start: 0;
     margin-block-end: 0;
+}
+
+.topmain {
+    position: relative;
+    width: 800px;
+
+    .topform {
+        background-color: rgb(230, 230, 230);
+        top: -780px;
+        left: 410px;
+        width: 620px;
+        position: absolute;
+    }
 }
 
 body {
     min-height: 100vh;
     position: relative;
+
     .header {
         background-color: white;
         position: fixed;
@@ -24,18 +38,20 @@ body {
         // top: 5px;
         padding-top: -30px;
         padding-bottom: 10px;
-        box-shadow:10px 0 25px -10px rgba(0, 0, 0, 0.5) ;
-    
-        &__logo{ 
+        box-shadow: 10px 0 25px -10px rgba(0, 0, 0, 0.5);
+
+        &__logo {
             width: 550px;
             margin-left: 60px;
             margin-top: 0px;
             overflow: hidden;
         }
     }
+
     main {
         min-height: 100vh;
         padding-top: 150px;
+
         .container {
             margin: 0 auto;
             display: flex;
@@ -45,14 +61,15 @@ body {
             min-height: 100vh;
             position: relative;
             z-index: 1;
+
             .post {
-                min-height: 360px;
                 box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.5);
                 display: block;
-                width:23%;
+                width: 23%;
                 position: relative;
                 z-index: 2;
                 margin-bottom: 30px;
+
                 .post-header {
                     padding-inline-start: 5%;
                     padding-inline-end: 5%;
@@ -62,20 +79,24 @@ body {
                     justify-content: space-between;
                     border-bottom: 1px solid gray;
                 }
+
                 .main-image {
-                    width:100%;
+                    width: 100%;
                     padding-top: 100%;
                     background-size: cover;
                 }
+
                 .post-content {
                     position: absolute;
                     top: 50%;
                     transform: translate(0, -50%);
                 }
+
                 .post-footer {
                     height: 40px;
                 }
             }
+
             .popup-hidden {
                 display: none;
             }
@@ -88,15 +109,18 @@ body {
                 min-height: 100vh;
                 z-index: 10;
                 position: fixed;
+
                 .popup {
                     position: relative;
                     width: 1440px;
                     min-height: 100vh;
+
                     .popup-main {
                         position: absolute;
                         top: 60%;
                         left: 50%;
                         transform: translate(-50%, -50%);
+
                         .popup-header {
                             width: 360px;
                             background-color: white;
@@ -104,17 +128,20 @@ body {
                             padding-inline-end: 20px;
                             height: 40px;
                             line-height: 40px;
+
                             .close-button {
                                 margin: 0;
                                 float: right;
                             }
                         }
-                        .popup-post{
+
+                        .popup-post {
                             margin-top: 0;
                             padding-top: 0;
                             width: 400px;
                             overflow: visible;
                         }
+
                         .post-media-content {
                             width: 400px;
                             background-color: white;
@@ -125,16 +152,18 @@ body {
                 }
             }
         }
-        .container::before{
-            content:"";
+
+        .container::before {
+            content: "";
             display: block;
-            width:23%;
+            width: 23%;
             order: 1;
         }
-        .container::after{
-            content:"";
+
+        .container::after {
+            content: "";
             display: block;
-            width:23%;
+            width: 23%;
         }
     }
 }
